@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import { FaUser } from "react-icons/fa";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -10,10 +12,88 @@ const Register = () => {
 
   const { name, email, password, password2 } = formData;
 
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    if (password !== password2) {
+      toast.error("passwords do not match");
+    }
+  };
+
   return (
-    <div>
-      <h1>Register</h1>
-    </div>
+    <>
+      <section className="heading">
+        <h1>
+          <FaUser /> Register
+        </h1>
+        <p>Please create an account</p>
+      </section>
+
+      <section className="form">
+        <form onSubmit={onSubmit}>
+          <div className="form-group">
+            <input
+              type="text"
+              className="from-control"
+              id="name"
+              name="name"
+              value={name}
+              onChange={onChange}
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="email"
+              className="from-control"
+              id="email"
+              name="email"
+              value={email}
+              onChange={onChange}
+              placeholder="Enter your Email"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              className="from-control"
+              id="password"
+              name="password"
+              value={password}
+              onChange={onChange}
+              placeholder="Enter your Passowrd"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              className="from-control"
+              id="password2"
+              name="password2"
+              value={password2}
+              onChange={onChange}
+              placeholder="Confirm your Password"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <button type="submit" className="btn btn-block">
+              Submit
+            </button>
+          </div>
+        </form>
+      </section>
+    </>
   );
 };
 
